@@ -4,7 +4,6 @@
 
 .container-button {
     display: inline-grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: auto auto;
     grid-gap: 20px;
-    width: 200px;
   }
