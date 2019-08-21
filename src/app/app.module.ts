@@ -15,6 +15,7 @@ import { ClaimService } from './shared/services/claim.service';
 import { TaskService } from './shared/services/task.service';
 import { BrigadeService } from './shared/services/brigade.service';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { TaskListComponent } from './components/tasks/task-list/task-list.component';
 
 @NgModule({
   declarations: [ 
@@ -24,7 +25,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     ClaimListComponent,
     TasksComponent,
     TaskComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,

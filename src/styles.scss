@@ -1,2 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+div.container{
+    margin: 0px 40px;
+
+    .search-div {
+        position: relative;
+        margin-top: 20px;
+    }
+    
+    .position-right-div {
+        position: absolute;
+        right: 0;
+    }
+    
+    .mat-elevation-z8 {
+        margin-top: 20px;
+    }
+}
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}

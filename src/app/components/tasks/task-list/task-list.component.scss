@@ -1,0 +1,10 @@
+// .margin-right {
+//     margin-right: 25px;
+// }
+
+.container-button {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    width: 200px;
+  }

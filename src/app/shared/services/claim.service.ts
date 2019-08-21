@@ -13,8 +13,8 @@ export class ClaimService {
 
   form: FormGroup = new FormGroup({
     $key: new FormControl(null),
-    // ClaimDate: new FormControl(''),
-    // ClaimNumber: new FormControl(''),
+    ClaimDate: new FormControl(''),
+    ClaimNumber: new FormControl(''),
     Customer: new FormControl('', Validators.required),
     CustomerRequisites: new FormControl(''),
     ListWorks: new FormControl('1')
@@ -23,8 +23,8 @@ export class ClaimService {
   initializeFormGroup() {
     this.form.setValue({
       $key: null,
-      // ClaimDate: '',
-      // ClaimNumber: '',
+      ClaimNumber: '',
+      ClaimDate: '',
       Customer: '',
       CustomerRequisites: '',
       ListWorks: ''

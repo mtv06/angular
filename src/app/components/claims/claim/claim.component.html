@@ -1,37 +1,40 @@
 <mat-toolbar>
   <span>{{service.form.controls['$key'].value?"Редактировать заявку":"Новая заявка"}}</span>
   <span class="fill-remaining-space"></span>
-  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
 </mat-toolbar>
 <form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
-    <mat-grid-list cols="2" rowHeight="300px">
-      <mat-grid-tile>
-        <div class="controles-container">
-          <input type="hidden" formControlName="$key">
-          <mat-form-field>
-            <input formControlName="Customer" matInput placeholder="Customer*">
-            <mat-error>This field is mandatory.</mat-error>
-          </mat-form-field>
-          <!-- <mat-form-field>
-              <input formControlName="ListWorks" matInput [matDatepicker]="picker" placeholder="ListWorks">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field> -->
-          <mat-form-field>
-            <input formControlName="CustomerRequisites" matInput placeholder="CustomerRequisites">
-            <mat-error>Invalid email address.</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="ListWorks" matInput placeholder="ListWorks*">
-          </mat-form-field>
-          <!-- <mat-form-field>
-            <input formControlName="ListWorks" matInput placeholder="ListWorks">
-          </mat-form-field> -->
-          <div class="button-row">
-            <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Сохранить</button>
-            <button mat-raised-button color="warn" (click)="onClose()">Закрыть</button>
-          </div>
+  <mat-grid-list cols="2" rowHeight="450px">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <input type="hidden" formControlName="$key">
+        <mat-form-field>
+          <input formControlName="ClaimNumber" matInput placeholder="ClaimNumber*">
+          <mat-error>This field is mandatory.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="ClaimDate" matInput [matDatepicker]="picker" placeholder="ClaimDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="Customer" matInput placeholder="Customer*">
+          <mat-error>This field is mandatory.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea formControlName="CustomerRequisites" matInput placeholder="CustomerRequisites"></textarea>
+          <mat-error>Invalid email address.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea formControlName="ListWorks" matInput placeholder="ListWorks*"></textarea>
+        </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Сохранить</button>
+          <button mat-raised-button color="warn" (click)="onClose()">Закрыть</button>
         </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </form>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
