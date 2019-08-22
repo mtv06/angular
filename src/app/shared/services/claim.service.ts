@@ -7,22 +7,22 @@ import * as _ from 'lodash';
   providedIn: 'root'
 })
 export class ClaimService {
-  readonly rootURL = 'http://localhost:49417/api';
+  readonly rootURL = 'http://localhost:3289/api';
 
   constructor(private http: HttpClient) { }
 
   form: FormGroup = new FormGroup({
-    $key: new FormControl(null),
+    Id: new FormControl(0),
     ClaimDate: new FormControl(''),
     ClaimNumber: new FormControl(''),
     Customer: new FormControl('', Validators.required),
     CustomerRequisites: new FormControl(''),
-    ListWorks: new FormControl('1')
+    ListWorks: new FormControl('')
   });
 
   initializeFormGroup() {
     this.form.setValue({
-      $key: null,
+      Id: 0,
       ClaimNumber: '',
       ClaimDate: '',
       Customer: '',
@@ -32,23 +32,23 @@ export class ClaimService {
   }
 
   getClaim() {
-    return this.http.get(this.rootURL + '/Claim');
+    return this.http.get(this.rootURL + '/Claim')
   }
 
   postClaim(claim) {
-    console.log('claim - ', claim)
     return this.http.post(this.rootURL + '/Claim', claim);
   }
 
   putClaim(claim) {
-    return this.http.put(this.rootURL + '/Claim/'+ claim.Id, claim);
+    return this.http.put(this.rootURL + '/Claim/' + claim.Id, claim);
   }
-  
+
   deleteClaim(id) {
-    return this.http.delete(this.rootURL + '/Claim/'+ id);
+    return this.http.delete(this.rootURL + '/Claim/' + id);
   }
 
   populateForm(claim) {
     this.form.setValue(_.omit(claim));
   }
+
 }

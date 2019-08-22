@@ -7,48 +7,51 @@ import * as _ from 'lodash';
   providedIn: 'root'
 })
 export class TaskService {
-  readonly rootURL = 'http://localhost:49417/api';
+  readonly rootURL = 'http://localhost:3289/api';
 
   constructor(private http: HttpClient) { }
 
   form: FormGroup = new FormGroup({
-    $key: new FormControl(null),
-    ClaimDate: new FormControl(''),
-    ClaimNumber: new FormControl(''),
-    Customer: new FormControl('', Validators.required),
-    CustomerRequisites: new FormControl(''),
-    ListWorks: new FormControl('1')
+    Id: new FormControl(0),
+    Claim: new FormControl(null),
+    ClaimId: new FormControl(0),
+    BrigadeId: new FormControl(0),
+    TaskStaging: new FormControl(''),
+    BrigadeConfirmation: new FormControl(false),
+    BrigadeNote: new FormControl('', Validators.required),
+    BrigadeMark: new FormControl('')
   });
 
   initializeFormGroup() {
     this.form.setValue({
-      $key: null,
-      ClaimNumber: '',
-      ClaimDate: '',
-      Customer: '',
-      CustomerRequisites: '',
-      ListWorks: ''
+      Id: 0,
+      Claim: null,
+      ClaimId: 0,
+      BrigadeId: 0,
+      TaskStaging: '',
+      BrigadeConfirmation: false,
+      BrigadeNote: '',
+      BrigadeMark: ''
     });
   }
 
-  getClaim() {
-    return this.http.get(this.rootURL + '/Claim');
+  getTask() {
+    return this.http.get(this.rootURL + '/Task');
   }
 
-  postClaim(claim) {
-    console.log('claim - ', claim)
-    return this.http.post(this.rootURL + '/Claim', claim);
+  postTask(task) {
+    return this.http.post(this.rootURL + '/Task', task);
   }
 
-  putClaim(claim) {
-    return this.http.put(this.rootURL + '/Claim/'+ claim.Id, claim);
+  putTask(task) {
+    return this.http.put(this.rootURL + '/Task/'+ task.Id, task);
   }
   
-  deleteClaim(id) {
-    return this.http.delete(this.rootURL + '/Claim/'+ id);
+  deleteTask(id) {
+    return this.http.delete(this.rootURL + '/Task/'+ id);
   }
 
-  populateForm(claim) {
-    this.form.setValue(_.omit(claim));
+  populateForm(task) {
+    this.form.setValue(_.omit(task));
   }
 }

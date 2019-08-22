@@ -21,7 +21,25 @@ export class ClaimComponent implements OnInit {
 
   onSubmit() {
     if (this.service.form.valid) {
-      this.service.postClaim(this.service.form.value);
+      if (this.service.form.controls['Id'].value == 0) {
+        this.service.postClaim(this.service.form.value).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        )
+      } else {
+        this.service.putClaim(this.service.form.value).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        )
+      }
       this.service.form.reset();
       this.service.initializeFormGroup();
       this.notificationService.success(':: Submitted successfully');

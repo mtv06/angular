@@ -17,7 +17,7 @@
 </div>
 <div class="mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="TaskNumber">
+        <!-- <ng-container matColumnDef="TaskNumber">
             <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.TaskNumber}} </mat-cell>
         </ng-container>
@@ -25,7 +25,7 @@
         <ng-container matColumnDef="TaskDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header> TaskDate </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.TaskDate}} </mat-cell>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="Claim">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Claim </mat-header-cell>
@@ -63,7 +63,7 @@
                 <button mat-icon-button (click)="onEdit(row)">
                     <mat-icon>launch</mat-icon>
                 </button>
-                <button mat-icon-button color="warn" (click)="onDelete(row.$key)">
+                <button mat-icon-button color="warn" (click)="onDelete(row.Id)">
                     <mat-icon>delete_outline</mat-icon>
                 </button>
             </mat-cell>
