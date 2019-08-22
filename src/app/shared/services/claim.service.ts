@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class ClaimService {
   }
 
   getClaim() {
-    return this.http.get(this.rootURL + '/Claim')
+    return this.http.get(this.rootURL + '/Claim');
   }
 
   postClaim(claim) {

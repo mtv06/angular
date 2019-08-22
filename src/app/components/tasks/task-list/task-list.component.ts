@@ -9,7 +9,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 export interface Task {
   Id: number;
   Claim: number;
-  BrigadeId: number;
+  Brigade: number;
   TaskStaging: string;
   BrigadeConfirmation: boolean;
   BrigadeNote: string;
@@ -22,22 +22,22 @@ export interface Task {
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  displayedColumns: string[] = ['ClaimId', 'BrigadeId', 'TaskStaging', 'BrigadeConfirmation', 'BrigadeNote', 'BrigadeMark'];
+  displayedColumns: string[] = ['Claim', 'Brigade', 'TaskStaging', 'BrigadeConfirmation', 'BrigadeNote', 'BrigadeMark'];
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private service: TaskService,
-    private claimService: ClaimService,
-    private brigadeService: BrigadeService,
-    private dialog: MatDialog,
-    private notificationService: NotificationService,
-    private dialogService: DialogService) { }
+              private claimService: ClaimService,
+              private brigadeService: BrigadeService,
+              private dialog: MatDialog,
+              private notificationService: NotificationService,
+              private dialogService: DialogService) { }
 
   ngOnInit() {
     this.service.getTask().subscribe((res: Task[]) => {
-      console.log('Task - ', res)
-      this.dataSource = new MatTableDataSource<Task>(res)
+      console.log('Task - ', res);
+      this.dataSource = new MatTableDataSource<Task>(res);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
