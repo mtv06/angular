@@ -4,15 +4,7 @@ import { ClaimService } from 'src/app/shared/services/claim.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { ClaimComponent } from 'src/app/components/claims/claim/claim.component';
 import { DialogService } from 'src/app/shared/services/dialog.service';
-
-export interface Claim {
-  Id: number;
-  ClaimNumber: string;
-  ClaimDate: string;
-  Customer: string;
-  CustomerRequisites: string;
-  ListWorks: string;
-}
+import { Claim } from 'src/app/shared/interfaces/claim.interface';
 
 @Component({
   selector: 'app-claim-list',
@@ -26,14 +18,13 @@ export class ClaimListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private service: ClaimService,
-    private dialog: MatDialog,
-    private notificationService: NotificationService,
-    private dialogService: DialogService) { }
+              private dialog: MatDialog,
+              private notificationService: NotificationService,
+              private dialogService: DialogService) { }
 
   ngOnInit() {
-    this.service.getClaim().subscribe((res: Claim[]) => {
-      console.log('Claim - ', res)
-      this.dataSource = new MatTableDataSource<Claim>(res)
+    this.service.getAllClaim().subscribe((res: Claim[]) => {
+      this.dataSource = new MatTableDataSource<Claim>(res);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
@@ -48,7 +39,7 @@ export class ClaimListComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "60%";
+    dialogConfig.width = '30%';
     this.dialog.open(ClaimComponent, dialogConfig);
   }
 
@@ -57,7 +48,7 @@ export class ClaimListComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "60%";
+    dialogConfig.width = '30%';
     this.dialog.open(ClaimComponent, dialogConfig);
   }
 
@@ -66,8 +57,8 @@ export class ClaimListComponent implements OnInit {
       .afterClosed().subscribe(res => {
         if (res) {
           this.service.deleteClaim(id).subscribe(
-            res => {
-              console.log(res);
+            claim => {
+              console.log(claim);
               this.notificationService.warn('! Deleted successfully');
             },
             err => {

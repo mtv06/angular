@@ -13,9 +13,12 @@ export class TaskService {
 
   form: FormGroup = new FormGroup({
     Id: new FormControl(0),
-    Claim: new FormControl(null),
+    TaskNumber: new FormControl(''),
+    TaskDate: new FormControl(''),
     ClaimId: new FormControl(0),
+    Claim: new FormControl(null),
     BrigadeId: new FormControl(0),
+    Brigade: new FormControl(null),
     TaskStaging: new FormControl(''),
     BrigadeConfirmation: new FormControl(false),
     BrigadeNote: new FormControl('', Validators.required),
@@ -25,8 +28,11 @@ export class TaskService {
   initializeFormGroup() {
     this.form.setValue({
       Id: 0,
+      TaskNumber: '',
+      TaskDate: '',
       Claim: null,
       ClaimId: 0,
+      Brigade: null,
       BrigadeId: 0,
       TaskStaging: '',
       BrigadeConfirmation: false,
@@ -35,7 +41,7 @@ export class TaskService {
     });
   }
 
-  getTask() {
+  getAllTask() {
     return this.http.get(this.rootURL + '/Task');
   }
 
@@ -44,14 +50,15 @@ export class TaskService {
   }
 
   putTask(task) {
-    return this.http.put(this.rootURL + '/Task/'+ task.Id, task);
+    return this.http.put(this.rootURL + '/Task/' + task.Id, task);
   }
-  
+
   deleteTask(id) {
-    return this.http.delete(this.rootURL + '/Task/'+ id);
+    return this.http.delete(this.rootURL + '/Task/' + id);
   }
 
   populateForm(task) {
+    console.log(task);
     this.form.setValue(_.omit(task));
   }
 }

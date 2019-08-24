@@ -12,16 +12,16 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 export class ClaimComponent implements OnInit {
 
   constructor(private service: ClaimService,
-    private brigadeService: BrigadeService,
-    private notificationService: NotificationService,
-    public dialogRef: MatDialogRef<ClaimComponent>) { }
+              private brigadeService: BrigadeService,
+              private notificationService: NotificationService,
+              public dialogRef: MatDialogRef<ClaimComponent>) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
     if (this.service.form.valid) {
-      if (this.service.form.controls['Id'].value == 0) {
+      if (this.service.form.controls.Id.value === 0) {
         this.service.postClaim(this.service.form.value).subscribe(
           res => {
             console.log(res);
@@ -29,7 +29,7 @@ export class ClaimComponent implements OnInit {
           err => {
             console.log(err);
           }
-        )
+        );
       } else {
         this.service.putClaim(this.service.form.value).subscribe(
           res => {
@@ -38,7 +38,7 @@ export class ClaimComponent implements OnInit {
           err => {
             console.log(err);
           }
-        )
+        );
       }
       this.service.form.reset();
       this.service.initializeFormGroup();

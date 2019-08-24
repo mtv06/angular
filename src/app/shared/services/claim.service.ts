@@ -31,8 +31,12 @@ export class ClaimService {
     });
   }
 
-  getClaim() {
+  getAllClaim() {
     return this.http.get(this.rootURL + '/Claim');
+  }
+
+  getClaim(id) {
+    return this.http.get(this.rootURL + '/Claim/' + id);
   }
 
   postClaim(claim) {
