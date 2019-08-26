@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { MatDialog, MatTableDataSource, MatSort, MatPaginator, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TaskService } from 'src/app/shared/services/task.service';
@@ -27,7 +27,8 @@ export class TaskListComponent implements OnInit {
               private brigadeService: BrigadeService,
               private dialog: MatDialog,
               private notificationService: NotificationService,
-              private dialogService: DialogService) { }
+              private dialogService: DialogService,
+              private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.refresh();
@@ -99,6 +100,7 @@ export class TaskListComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Task>(res);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.changeDetectorRefs.detectChanges();
     });
   }
 

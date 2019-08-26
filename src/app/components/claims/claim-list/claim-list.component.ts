@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig } from '@angular/material';
 import { ClaimService } from 'src/app/shared/services/claim.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
@@ -20,7 +20,8 @@ export class ClaimListComponent implements OnInit {
   constructor(private service: ClaimService,
               private dialog: MatDialog,
               private notificationService: NotificationService,
-              private dialogService: DialogService) { }
+              private dialogService: DialogService,
+              private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.refresh();
@@ -72,6 +73,7 @@ export class ClaimListComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Claim>(res);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.changeDetectorRefs.detectChanges();
     });
   }
 }
