@@ -13,7 +13,7 @@ export class BrigadeService {
     return this.http.get(this.rootURL + '/Brigade');
   }
 
-  getBrigade(id) {
+  getBrigade(id: any) {
     return this.http.get(this.rootURL + '/Brigade/' + id);
   }
 }

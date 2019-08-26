@@ -36,23 +36,23 @@ export class ClaimService {
     return this.http.get(this.rootURL + '/Claim');
   }
 
-  getClaim(id) {
+  getClaim(id: any) {
     return this.http.get(this.rootURL + '/Claim/' + id);
   }
 
-  postClaim(claim) {
+  postClaim(claim: any) {
     return this.http.post(this.rootURL + '/Claim', claim);
   }
 
-  putClaim(claim) {
+  putClaim(claim: any) {
     return this.http.put(this.rootURL + '/Claim/' + claim.Id, claim);
   }
 
-  deleteClaim(id) {
+  deleteClaim(id: any) {
     return this.http.delete(this.rootURL + '/Claim/' + id);
   }
 
-  populateForm(claim) {
+  populateForm(claim: any) {
     this.form.setValue(claim);
   }
 
