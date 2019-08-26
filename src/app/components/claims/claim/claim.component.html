@@ -11,24 +11,26 @@
       <div class="controles-container">
         <input type="hidden" formControlName="Id">
         <mat-form-field>
-          <input formControlName="ClaimNumber" matInput placeholder="ClaimNumber*">
-          <mat-error>This field is mandatory.</mat-error>
+          <input formControlName="ClaimNumber" matInput placeholder="Номер*">
+          <mat-error>Это поле является обязательным.</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input formControlName="ClaimDate" matInput [matDatepicker]="picker" placeholder="ClaimDate">
+          <input formControlName="ClaimDate" matInput [matDatepicker]="picker" placeholder="Дата*">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          <mat-error>Это поле является обязательным.</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input formControlName="Customer" matInput placeholder="Customer*">
-          <mat-error>This field is mandatory.</mat-error>
+          <input formControlName="Customer" matInput placeholder="Заказчик*">
+          <mat-error>Это поле является обязательным..</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <textarea formControlName="CustomerRequisites" matInput placeholder="CustomerRequisites"></textarea>
-          <mat-error>Invalid email address.</mat-error>
+          <textarea formControlName="CustomerRequisites" matInput placeholder="Реквизиты заказчика"></textarea>
+          <mat-error>Это поле является обязательным.</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <textarea formControlName="ListWorks" matInput placeholder="ListWorks*"></textarea>
+          <textarea formControlName="ListWorks" matInput placeholder="Услуга*"></textarea>
+          <mat-error>Это поле является обязательным.</mat-error>
         </mat-form-field>
         <div class="button-row">
           <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Сохранить</button>

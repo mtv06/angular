@@ -23,11 +23,7 @@ export class ClaimListComponent implements OnInit {
               private dialogService: DialogService) { }
 
   ngOnInit() {
-    this.service.getAllClaim().subscribe((res: Claim[]) => {
-      this.dataSource = new MatTableDataSource<Claim>(res);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    });
+    this.refresh();
   }
 
   applyFilter(filterValue: string) {
@@ -40,32 +36,42 @@ export class ClaimListComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '30%';
-    this.dialog.open(ClaimComponent, dialogConfig);
+    this.dialog.open(ClaimComponent, dialogConfig)
+      .afterClosed().subscribe(() => {
+        this.refresh();
+      });
   }
 
-  onEdit(row) {
+  onEdit(row: any) {
     this.service.populateForm(row);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '30%';
-    this.dialog.open(ClaimComponent, dialogConfig);
+    this.dialog.open(ClaimComponent, dialogConfig)
+    .afterClosed().subscribe(() => {
+      this.refresh();
+    });
   }
 
-  onDelete(id) {
+  onDelete(id: any) {
     this.dialogService.openConfirmDialog()
-      .afterClosed().subscribe(res => {
+      .afterClosed().subscribe((res) => {
         if (res) {
-          this.service.deleteClaim(id).subscribe(
-            claim => {
-              console.log(claim);
-              this.notificationService.warn('! Deleted successfully');
-            },
-            err => {
-              console.log(err);
+          this.service.deleteClaim(id).subscribe(() => {
+              this.refresh();
+              this.notificationService.warn('Запись успешно удалена!');
             }
           );
         }
       });
+  }
+
+  refresh() {
+    this.service.getAllClaim().subscribe((res: Claim[]) => {
+      this.dataSource = new MatTableDataSource<Claim>(res);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
   }
 }

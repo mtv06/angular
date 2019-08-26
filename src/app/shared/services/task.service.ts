@@ -1,27 +1,31 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import * as _ from 'lodash';
+import { GeneralService } from './general.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  readonly rootURL = 'http://localhost:3289/api';
+  readonly rootURL = this.service.rootURL;
+  claimNumber: string;
+  brigadeName: string;
+  brigadeConfirmation: boolean;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private service: GeneralService) { }
 
   form: FormGroup = new FormGroup({
     Id: new FormControl(0),
-    TaskNumber: new FormControl(''),
-    TaskDate: new FormControl(''),
-    ClaimId: new FormControl(0),
+    TaskNumber: new FormControl('', Validators.required),
+    TaskDate: new FormControl('', Validators.required),
+    ClaimId: new FormControl(0, Validators.required),
     Claim: new FormControl(null),
-    BrigadeId: new FormControl(0),
+    BrigadeId: new FormControl(0, Validators.required),
     Brigade: new FormControl(null),
-    TaskStaging: new FormControl(''),
+    TaskStaging: new FormControl('', Validators.required),
     BrigadeConfirmation: new FormControl(false),
-    BrigadeNote: new FormControl('', Validators.required),
+    BrigadeNote: new FormControl(''),
     BrigadeMark: new FormControl('')
   });
 
@@ -45,20 +49,21 @@ export class TaskService {
     return this.http.get(this.rootURL + '/Task');
   }
 
-  postTask(task) {
+  postTask(task: any) {
     return this.http.post(this.rootURL + '/Task', task);
   }
 
-  putTask(task) {
+  putTask(task: any) {
+    task.Claim = null;
+    task.Brigade = null;
     return this.http.put(this.rootURL + '/Task/' + task.Id, task);
   }
 
-  deleteTask(id) {
+  deleteTask(id: any) {
     return this.http.delete(this.rootURL + '/Task/' + id);
   }
 
-  populateForm(task) {
-    console.log(task);
-    this.form.setValue(_.omit(task));
+  populateForm(task: any) {
+    this.form.setValue(task);
   }
 }

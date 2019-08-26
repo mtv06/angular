@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Claim } from 'src/app/shared/interfaces/claim.interface';
 import { ClaimService } from 'src/app/shared/services/claim.service';
 import { BrigadeService } from 'src/app/shared/services/brigade.service';
@@ -17,13 +17,15 @@ export class TaskComponent implements OnInit {
   listClaim: Claim[];
   listBrigade: Brigade[];
   check = false;
-  rowHeightBrigade = 0;
+  claimNumber: string;
+  brigadeName: string;
 
   constructor(private service: TaskService,
               private claimService: ClaimService,
               private brigadeService: BrigadeService,
               private notificationService: NotificationService,
-              public dialogRef: MatDialogRef<ClaimComponent>) { }
+              public dialogRef: MatDialogRef<ClaimComponent>,
+              ) { }
 
   ngOnInit() {
     this.claimService.getAllClaim().subscribe((claim: Claim[]) => {
@@ -32,40 +34,28 @@ export class TaskComponent implements OnInit {
     this.brigadeService.getAllBrigade().subscribe((brigade: Brigade[]) => {
       this.listBrigade = brigade;
     });
+    this.claimNumber = this.service.claimNumber;
+    this.brigadeName = this.service.brigadeName;
+    this.check = this.service.brigadeConfirmation;
   }
 
   onSubmit() {
     if (this.service.form.valid) {
-      console.log(this.service.form.value);
       if (this.service.form.controls.Id.value === 0) {
-        this.service.postTask(this.service.form.value).subscribe(
-          res => {
-            console.log(res);
-          },
-          err => {
-            console.log(err);
-          }
-        );
+        this.service.postTask(this.service.form.value).subscribe();
+        this.notificationService.success('Запись успешно добавлена!');
       } else {
-        this.service.putTask(this.service.form.value).subscribe(
-          res => {
-            console.log(res);
-          },
-          err => {
-            console.log(err);
-          }
-        );
+        this.service.putTask(this.service.form.value).subscribe();
+        this.notificationService.success('Запись успешно обновлена!');
       }
       this.service.form.reset();
       this.service.initializeFormGroup();
-      this.notificationService.success(':: Submitted successfully');
       this.onClose();
     }
   }
 
   onCheckbox() {
     this.check = !this.check;
-    this.rowHeightBrigade = 100;
   }
 
   onClose() {

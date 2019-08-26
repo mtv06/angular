@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import * as _ from 'lodash';
+import { GeneralService } from './general.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClaimService {
-  readonly rootURL = 'http://localhost:3289/api';
+  readonly rootURL = this.service.rootURL;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private service: GeneralService) { }
 
   form: FormGroup = new FormGroup({
     Id: new FormControl(0),
-    ClaimDate: new FormControl(''),
-    ClaimNumber: new FormControl(''),
+    ClaimDate: new FormControl('', Validators.required),
+    ClaimNumber: new FormControl('', Validators.required),
     Customer: new FormControl('', Validators.required),
     CustomerRequisites: new FormControl(''),
-    ListWorks: new FormControl('')
+    ListWorks: new FormControl('', Validators.required)
   });
 
   initializeFormGroup() {
@@ -52,7 +53,7 @@ export class ClaimService {
   }
 
   populateForm(claim) {
-    this.form.setValue(_.omit(claim));
+    this.form.setValue(claim);
   }
 
 }

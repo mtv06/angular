@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatTableDataSource, MatSort, MatPaginator, MatDialogConfig } from '@angular/material';
+import { Component, OnInit, ViewChild} from '@angular/core';
+import { MatDialog, MatTableDataSource, MatSort, MatPaginator, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TaskService } from 'src/app/shared/services/task.service';
 import { ClaimService } from 'src/app/shared/services/claim.service';
@@ -17,9 +17,7 @@ import { ReportComponent } from '../../report/report.component';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  displayedColumns: string[] = [
-    'TaskNumber', 'TaskDate', 'Claim', 'Brigade', 'TaskStaging', 'BrigadeConfirmation', 'BrigadeNote', 'BrigadeMark', 'actions'
-  ];
+  displayedColumns: string[] = ['TaskNumber', 'TaskDate', 'Claim', 'Brigade', 'TaskStaging', 'BrigadeConfirmation', 'actions'];
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -32,6 +30,63 @@ export class TaskListComponent implements OnInit {
               private dialogService: DialogService) { }
 
   ngOnInit() {
+    this.refresh();
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onReport() {
+    this.service.initializeFormGroup();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '80%';
+    this.dialog.open(ReportComponent, dialogConfig);
+  }
+
+  onCreate() {
+    this.service.initializeFormGroup();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(TaskComponent, dialogConfig)
+    .afterClosed().subscribe(() => {
+      this.refresh();
+    });
+  }
+
+  onEdit(row: any) {
+    this.service.populateForm(row);
+    this.service.claimNumber = String(row.ClaimId);
+    this.service.brigadeName = String(row.BrigadeId);
+    this.service.brigadeConfirmation = row.BrigadeConfirmation;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(TaskComponent, dialogConfig)
+      .afterClosed().subscribe(() => {
+        this.refresh();
+      });
+  }
+
+  onDelete(id: any) {
+    this.dialogService.openConfirmDialog()
+      .afterClosed().subscribe(res => {
+        if (res) {
+          this.service.deleteTask(id).subscribe(() => {
+              this.refresh();
+              this.notificationService.warn('Запись успешно удалена!');
+            }
+          );
+        }
+      });
+  }
+
+  refresh() {
     this.service.getAllTask().subscribe((res: Task[]) => {
       res.forEach((_, i) => {
         this.claimService.getClaim(res[i].ClaimId).subscribe((claim: Claim[]) => {
@@ -45,54 +100,6 @@ export class TaskListComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  onReport() {
-    this.service.initializeFormGroup();
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    // dialogConfig.width = '60%';
-    this.dialog.open(ReportComponent, dialogConfig);
-  }
-
-  onCreate() {
-    this.service.initializeFormGroup();
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    this.dialog.open(TaskComponent, dialogConfig);
-  }
-
-  onEdit(row) {
-    this.service.populateForm(row);
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    this.dialog.open(TaskComponent, dialogConfig);
-  }
-
-  onDelete(id) {
-    this.dialogService.openConfirmDialog()
-      .afterClosed().subscribe(res => {
-        if (res) {
-          this.service.deleteTask(id).subscribe(
-            task => {
-              console.log(task);
-              this.notificationService.warn('! Deleted successfully');
-            },
-            err => {
-              console.log(err);
-            }
-          );
-        }
-      });
   }
 
 }

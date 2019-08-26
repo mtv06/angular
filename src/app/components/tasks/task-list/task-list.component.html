@@ -12,49 +12,42 @@
         </div>
     </div>
     <mat-form-field class="position-right-div">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Поиск">
     </mat-form-field>
 </div>
 <div class="mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="TaskNumber">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Номер </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.TaskNumber}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="TaskDate">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> TaskDate </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Дата </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.TaskDate}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Claim">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Claim </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Номер заявки </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.Claim}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Brigade">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Brigade </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Бригада </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.Brigade}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="TaskStaging">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> TaskStaging </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Постановка задачи </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.TaskStaging}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="BrigadeConfirmation">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> BrigadeConfirmation </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.BrigadeConfirmation}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="BrigadeNote">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> BrigadeNote </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.BrigadeNote}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="BrigadeMark">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> BrigadeMark </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.BrigadeMark}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Выполнено </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <mat-icon *ngIf="element.BrigadeConfirmation == 0">hourglass_empty</mat-icon>
+                <mat-icon *ngIf="element.BrigadeConfirmation == 1">done</mat-icon>
+             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">

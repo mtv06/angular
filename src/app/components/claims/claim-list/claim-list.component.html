@@ -3,33 +3,33 @@
         <mat-icon>add</mat-icon>Зарегистрировать заявку
     </button>
     <mat-form-field class="position-right-div">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Поиск">
     </mat-form-field>
 </div>
 <div class="mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="ClaimNumber">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Номер </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.ClaimNumber}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ClaimDate">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> ClaimDate </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Дата </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.ClaimDate}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Customer">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Customer </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Заказчик </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.Customer}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="CustomerRequisites">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> CustomerRequisites </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Реквизиты заказчика </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.CustomerRequisites}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ListWorks">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> ListWorks </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Услуга </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.ListWorks}} </mat-cell>
         </ng-container>
 

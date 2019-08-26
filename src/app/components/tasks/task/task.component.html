@@ -11,33 +11,36 @@
             <div class="controles-container">
                 <input type="hidden" formControlName="Id">
                 <mat-form-field>
-                    <input formControlName="TaskNumber" matInput placeholder="TaskNumber*">
-                    <mat-error>This field is mandatory.</mat-error>
+                    <input formControlName="TaskNumber" matInput placeholder="Номер*">
+                    <mat-error>Это поле является обязательным.</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input formControlName="TaskDate" matInput [matDatepicker]="picker" placeholder="ClaimDate">
+                    <input formControlName="TaskDate" matInput [matDatepicker]="picker" placeholder="Дата*">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
+                    <mat-error>Это поле является обязательным.</mat-error>
                 </mat-form-field>
             </div>
         </mat-grid-tile>
         <mat-grid-tile>
                 <div class="controles-container">
                 <mat-form-field>
-                    <mat-select formControlName="ClaimId" placeholder="Claim">
+                    <mat-select [(ngModel)]="claimNumber" formControlName="ClaimId" placeholder="Номер заявки*">
                         <mat-option>None</mat-option>
                         <ng-container *ngFor="let claim of listClaim">
-                            <mat-option value="{{claim.Id}}">{{claim.ClaimNumber}}-{{claim.ClaimDate}}-{{claim.Customer}}</mat-option>
+                            <mat-option value="{{claim.Id}}">{{claim.ClaimNumber}}</mat-option>
                         </ng-container>
                     </mat-select>
+                    <mat-error>Это поле является обязательным.</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-select formControlName="BrigadeId" placeholder="Brigade">
+                    <mat-select [(ngModel)]="brigadeName" formControlName="BrigadeId" placeholder="Бригада*">
                         <mat-option>None</mat-option>
                         <ng-container *ngFor="let brigade of listBrigade">
-                            <mat-option value="{{brigade.Id}}">{{brigade.BrigadeNumber}}-{{brigade.BrigadeName}}</mat-option>
+                            <mat-option value="{{brigade.Id}}">{{brigade.BrigadeName}}</mat-option>
                         </ng-container>
                     </mat-select>
+                    <mat-error>Это поле является обязательным.</mat-error>
                 </mat-form-field>
             </div>
         </mat-grid-tile>
@@ -46,25 +49,24 @@
         <mat-grid-tile>
             <div class="controles-container-staging">
                 <mat-form-field>
-                    <textarea formControlName="TaskStaging" matInput placeholder="TaskStaging"></textarea>
-                    <mat-error>Invalid email address.</mat-error>
+                    <textarea formControlName="TaskStaging" matInput placeholder="Постановка задачи*"></textarea>
+                    <mat-error>Это поле является обязательным.</mat-error>
                 </mat-form-field>
             </div>
         </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight=90px>
-        <mat-grid-tile>
+        <mat-grid-tile *ngIf=check >
             <div class="controles-container">
-                <mat-form-field *ngIf=check>
-                    <textarea formControlName="BrigadeNote" matInput placeholder="BrigadeNote"></textarea>
-                    <mat-error>Invalid email address.</mat-error>
+                <mat-form-field>
+                    <textarea formControlName="BrigadeNote" matInput placeholder="Примечания"></textarea>
                 </mat-form-field>
             </div>
         </mat-grid-tile>
-        <mat-grid-tile>
+        <mat-grid-tile *ngIf=check >
                 <div class="controles-container">
-                <mat-form-field *ngIf=check>
-                    <textarea formControlName="BrigadeMark" matInput placeholder="BrigadeMark*"></textarea>
+                <mat-form-field>
+                    <textarea formControlName="BrigadeMark" matInput placeholder="Заметки"></textarea>
                 </mat-form-field>
             </div>
         </mat-grid-tile>

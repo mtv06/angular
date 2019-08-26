@@ -1,1 +1,31 @@
-<p>report works!</p>
+<mat-toolbar>
+    <span class="fill-remaining-space"></span>
+    <span>Отчет</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<br />
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="monthTask">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Месяц </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.monthTask}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="brigadeName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Бигада </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.brigadeName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="countTask">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Количество задач </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.countTask}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[12, 24, 36]" [pageSize]="12" showFirstLastButtons></mat-paginator>
+</div>

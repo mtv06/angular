@@ -17,6 +17,7 @@ import { BrigadeService } from './shared/services/brigade.service';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { TaskListComponent } from './components/tasks/task-list/task-list.component';
 import { ReportComponent } from './components/report/report.component';
+import { ReportService } from './shared/services/report.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { ReportComponent } from './components/report/report.component';
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [ClaimService, TaskService, BrigadeService],
+  providers: [ClaimService, TaskService, BrigadeService, ReportService],
   bootstrap: [AppComponent],
   entryComponents: [ClaimComponent, ConfirmDialogComponent, TaskComponent, ReportComponent]
 })
